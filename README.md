@@ -1,6 +1,6 @@
 # Build and Deploy to Google Cloud Run Workflow
 
-This repository contains a reusable GitHub Actions workflow for building a Docker image, pushing it to Google Artifact Registry, and deploying it to Google Cloud Run.
+This repository contains a reusable GitHub Actions workflow for building a Docker image, pushing it to Google Artifact Registry (GAR), and deploying it to Google Cloud Run.
 
 ## Usage
 
@@ -29,12 +29,12 @@ jobs:
   deploy:
     uses: PresenceSoft/devops-github-actions/.github/workflows/build-deploy-cloudrun.yaml@main
     with:
-      project_id: "your-gcp-project-id"
+      gar_project_id: "your-gcp-project-id"
       gar_location: "europe-west9"
-      repository: "your-repository"
-      service: "your-service"
-      wif_provider: "your-wif-provider"
-      wif_service_account: "your-wif-service-account@your-project.iam.gserviceaccount.com"
+      gar_repository: "your-repository"
+      gar_service: "your-service"
+      gar_wif_provider: "your-wif-provider"
+      gar_wif_service_account: "your-wif-service-account@your-project.iam.gserviceaccount.com"
       cloudrun_region: "europe-west9"
       cloudrun_wif_provider: "your-cloudrun-wif-provider"
       cloudrun_wif_service_account: "your-cloudrun-wif-service-account@your-project.iam.gserviceaccount.com"
@@ -46,12 +46,12 @@ jobs:
 
 The workflow expects the following inputs:
 
-- `project_id`: The GCP project ID.
+- `gar_project_id`: The GCP project ID.
 - `gar_location`: The location for the Google Artifact Registry.
-- `repository`: The name of the Artifact Registry repository.
-- `service`: The name of the service in Artifact Registry.
-- `wif_provider`: The Workload Identity Federation provider.
-- `wif_service_account`: The service account for the Workload Identity Federation.
+- `gar_repository`: The name of the Artifact Registry repository.
+- `gar_service`: The name of the service in Artifact Registry.
+- `gar_wif_provider`: The Workload Identity Federation provider.
+- `gar_wif_service_account`: The service account for the Workload Identity Federation.
 - `cloudrun_region`: The region for the Cloud Run deployment.
 - `cloudrun_wif_provider`: The Workload Identity Federation provider for Cloud Run.
 - `cloudrun_wif_service_account`: The service account for the Workload Identity Federation for Cloud Run.

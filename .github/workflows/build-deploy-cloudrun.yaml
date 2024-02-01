@@ -1,24 +1,26 @@
 name: "Build and Deploy to Cloud Run"
 
+# GAR = Google Artifact Registry
+
 on:
   workflow_call:
     inputs:
-      project_id:
+      gar_project_id:
         required: true
         type: string
       gar_location:
         required: true
         type: string
-      repository:
+      gar_repository:
         required: true
         type: string
-      service:
+      gar_service:
         required: true
         type: string
-      wif_provider:
+      gar_wif_provider:
         required: true
         type: string
-      wif_service_account:
+      gar_wif_service_account:
         required: true
         type: string
       cloudrun_region:
@@ -38,12 +40,12 @@ on:
         type: string
 
 env:
-  PROJECT_ID: ${{ inputs.project_id }}
+  PROJECT_ID: ${{ inputs.gar_project_id }}
   GAR_LOCATION: ${{ inputs.gar_location }}
-  REPOSITORY: ${{ inputs.repository }}
-  SERVICE: ${{ inputs.service }}
-  WIF_PROVIDER: ${{ inputs.wif_provider }}
-  WIF_SERVICE_ACCOUNT: ${{ inputs.wif_service_account }}
+  REPOSITORY: ${{ inputs.gar_repository }}
+  SERVICE: ${{ inputs.gar_service }}
+  WIF_PROVIDER: ${{ inputs.gar_wif_provider }}
+  WIF_SERVICE_ACCOUNT: ${{ inputs.gar_wif_service_account }}
   CLOUDRUN_REGION: ${{ inputs.cloudrun_region }}
   CLOUDRUN_WIF_PROVIDER: ${{ inputs.cloudrun_wif_provider }}
   CLOUDRUN_WIF_SERVICE_ACCOUNT: ${{ inputs.cloudrun_wif_service_account }}
