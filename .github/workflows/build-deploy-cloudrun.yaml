@@ -4,7 +4,7 @@ name: "Build and Deploy to Cloud Run"
 
 on:
   workflow_call:
-    inputs:
+    inputs: #TODO: move wif and gchat webook to secrets
       gar_project_id:
         required: true
         type: string
