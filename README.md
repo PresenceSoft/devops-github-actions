@@ -27,6 +27,9 @@ on:
 
 jobs:
   deploy:
+    permissions:
+      contents: "read"
+      id-token: "write"
     uses: PresenceSoft/devops-github-actions/.github/workflows/build-deploy-cloudrun.yaml@main
     with:
       gar_project_id: "your-gcp-project-id"
