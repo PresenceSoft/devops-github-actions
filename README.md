@@ -45,9 +45,15 @@ jobs:
       google_chat_webhook: "your-google-chat-webhook"
 ```
 
+### Secrets
+
+- `pat_token`: GitHub Personal Access Token required if checkout_submodules is true.
+
 ### Inputs
 
 The workflow expects the following inputs:
+
+- `checkout_submodules`: Optional boolean to checkout submodules. Default is false.
 
 - `gar_project_id`: The GCP project ID.
 - `gar_location`: The location for the Google Artifact Registry.
