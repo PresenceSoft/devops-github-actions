@@ -4,7 +4,14 @@ name: "Build and Deploy to Cloud Run"
 
 on:
   workflow_call:
+    secrets:
+      pat_token: #Only if checkout_submodules = true
+        required: false
     inputs: #TODO: move wif and gchat webook to secrets
+      checkout_submodules:
+        required: false
+        type: boolean
+        default: false
       gar_project_id:
         required: true
         type: string
@@ -59,8 +66,15 @@ jobs:
       id-token: "write"
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout (With submodules)
+        uses: actions/checkout@v4
+        if: ${{ inputs.checkout_submodules  }}
+        with:
+          submodules: "true"
+          token: ${{ secrets.pat_token }}
       - name: Checkout
         uses: actions/checkout@v4
+        if: ${{ !inputs.checkout_submodules }}
 
       - name: Google Auth
         id: auth
