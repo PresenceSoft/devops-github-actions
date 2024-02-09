@@ -86,3 +86,57 @@ Ensure that your service account keys and other sensitive information are stored
 ---
 
 For more detailed instructions, please refer to the [GitHub Actions documentation](https://docs.github.com/en/actions) and the [Google Cloud documentation](https://cloud.google.com/docs).
+
+Certainly! Below is a clear and detailed documentation of the Docker image tagging and CI/CD strategy, ready to be included in your `README.md`. This documentation outlines the workflow, tagging conventions, and deployment strategy for managing multiple environments, ensuring clarity and consistency across your team.
+
+---
+
+## CI/CD Strategy with Docker Image Tagging
+
+### Overview
+
+This document outlines our Continuous Integration/Continuous Delivery (CI/CD) strategy, focusing on Docker image management and deployment across various environments, including staging and multiple client-specific environments. Our strategy ensures that the production-ready version of our application is consistently deployed across all client environments, leveraging Docker tags for clear versioning and environment management.
+
+### Docker Image Tagging Convention
+
+We utilize two primary Docker tags to manage our images across the development lifecycle:
+
+- **`latest`**: Represents the most current, production-ready version of our application. This image is deployed across all client environments to ensure consistency and reliability.
+- **`staging`**: Used for the version currently in development and testing phases. This tag is automatically deployed to our staging environment for testing.
+
+Additionally, immutable tags (e.g., based on semantic versioning like `v1.2.3`) are used to identify specific releases. These tags are crucial for tracking, rollback, and documentation purposes.
+
+### CI/CD Workflow
+
+Our CI/CD pipeline is designed to support continuous integration by automatically building and testing code changes, followed by a controlled deployment process across various environments.
+
+1. **Development and Testing**:
+
+   - **Commit to Development Branch**: Commits to a development branch (e.g., `develop`) trigger an automatic build and tagging of the Docker image as `staging`. This image is deployed to the staging environment for thorough testing.
+   - **Environment**: The staging environment is a replica of production, ensuring that any issues can be caught before they impact clients.
+
+2. **Production-Ready Release**:
+
+   - **Commit to Main Branch**: Commits to the main branch trigger a Docker build for the `latest` tag, signifying that the code is ready for production deployment. This process should include stringent tests and possibly manual reviews to ensure the code's stability and performance.
+   - **Git Tagging for Releases**: Creating a Git tag on the main branch (e.g., `v1.2.3`) signifies a new production release. This tag is associated with the `latest` Docker image and documented for historical tracking.
+
+3. **Client-Specific Deployment**:
+   - **Deployment Trigger**: The addition of a Git tag to the main branch acts as a trigger for deploying the `latest` Docker image to client-specific environments. This ensures all clients are updated to the new version simultaneously, maintaining uniformity across deployments.
+   - **Deployment Process**: The deployment process involves pulling the `latest` tagged Docker image from our registry and deploying it across all client environments, following any client-specific configurations or requirements.
+
+### Immutable Tags and Rollbacks
+
+For each build, we also create an immutable tag that reflects the specific version or commit hash. This practice allows for precise version tracking and facilitates easy rollback if necessary.
+
+### Deployment Safeguards
+
+- **Manual Approval**: For production deployments, including updates to client environments, we incorporate a manual approval step. This safeguard ensures that only fully vetted and tested changes are deployed to production.
+- **Monitoring and Alerts**: Post-deployment, we monitor application performance and health closely. Any anomalies trigger alerts and may initiate a rollback to a previous stable version.
+
+### Conclusion
+
+This CI/CD strategy with Docker image tagging ensures a streamlined, consistent deployment process across all environments. It balances automation with necessary controls to maintain high-quality, stable releases of our application.
+
+---
+
+Feel free to adjust the documentation as needed to fit your project's specific requirements or conventions. This template aims to provide a solid foundation for documenting your CI/CD practices in a clear and accessible manner.
