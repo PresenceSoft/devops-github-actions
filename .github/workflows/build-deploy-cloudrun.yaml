@@ -45,6 +45,9 @@ on:
       google_chat_webhook:
         required: true
         type: string
+      docker_tag:
+        required: true
+        type: string
 
 env:
   PROJECT_ID: ${{ inputs.gar_project_id }}
@@ -100,10 +103,11 @@ jobs:
         with:
           context: .
           push: true
-          tags: "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}"
+          tags: |
+            ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ inputs.docker_tag }}_${{ github.sha }},
+            ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ inputs.docker_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
   deploy:
     permissions:
       contents: "read"
@@ -128,7 +132,7 @@ jobs:
         with:
           service: ${{ env.CLOUDRUN_SERVICE }}
           region: ${{ env.CLOUDRUN_REGION }}
-          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}
+          image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ inputs.docker_tag }}_${{ github.sha }}
 
       - name: Google Chat Notification
         uses: Co-qn/google-chat-notification@releases/v1

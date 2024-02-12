@@ -43,6 +43,7 @@ jobs:
       cloudrun_wif_service_account: "your-cloudrun-wif-service-account@your-project.iam.gserviceaccount.com"
       cloudrun_service: "your-cloudrun-service"
       google_chat_webhook: "your-google-chat-webhook"
+      docker_tag: "latest"
 ```
 
 ### Secrets
@@ -66,6 +67,7 @@ The workflow expects the following inputs:
 - `cloudrun_wif_service_account`: The service account for the Workload Identity Federation for Cloud Run.
 - `cloudrun_service`: The name of the Cloud Run service.
 - `google_chat_webhook`: The webhook URL for Google Chat notifications.
+- `docker_tag`: The expected docker tag
 
 ### Workflow Steps
 
